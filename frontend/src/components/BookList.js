@@ -55,15 +55,16 @@ const BookList = () => {
           {
             books.map(book => (
               <tr key={book.id}>
-                <td>{book.author}</td>
+                <td>{book.authorName}</td>
                 <td>{book.bookName}</td>
                 <td>{book.quantity}</td>
                 <td>{book.price}</td>
                 <td>
-                    <Link className="btn btn-info" to={`/books/edit/${book.id}`}>Update</Link>
+                    <Link className="btn btn-info" to={`/books/edit/${book.id}`} >Update</Link>
                     <button className='btn btn-danger ml-2' onClick={(e)=>{
                         handleDelete(book.id)
                     }}>Delete</button>
+                    <Link to={`/books/edit/get/${book.id}` } className='btn btn-warning ml-2'>View</Link>
                 </td>
               </tr>
             ))

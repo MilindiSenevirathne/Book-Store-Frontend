@@ -16,8 +16,10 @@ const update = (data) => {
     return httpClient.put('/books', data);
 }
 
+
 const remove = id => {
     return httpClient.delete(`/books/${id}`);
 }
 
 export default { getAll, create, get, update, remove };
+

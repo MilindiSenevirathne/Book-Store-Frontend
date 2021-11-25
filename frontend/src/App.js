@@ -5,6 +5,7 @@ import BookList from "./components/BookList";
 import NotFound from "./components/NotFound";
 import Header from './components/Header'
 import Footer from "./components/Footer";
+import BookDetails from "./components/BookDetails";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path='/' element={<BookList />} />
           <Route path='/add' element={<AddBook />} />
           <Route path='/books/edit/:id' element={<AddBook />} />
+          <Route path='/books/edit/get/:id' element={<BookDetails />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
 

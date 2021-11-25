@@ -1,62 +1,67 @@
 import React, { useState, useEffect } from "react";
-import bookServices from "../Services/bookServices";
-import { useNavigate, useParams } from "react-router";
+import BookService from "../Services/bookServices";
+import { Navigate, useNavigate, useParams } from "react-router";
 import { Link } from 'react-router-dom'
+
 
 const AddBook = () => {
 
-    const [author, setAuthor] = useState('');
-    const [bookName, setBookName] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [price, setPrice] = useState('');
-    const navigate = useNavigate();
+    
+    const [bookName, setBookName] = useState('')
+    const [authorName, setAuthorName] = useState('')
+    const [quantity, setQuantity] = useState('')
+    const [price, setPrice] = useState('')
+    const [invoice, setInvoice] = useState();
+    const history = useNavigate();
     const { id } = useParams();
 
+    
+    useEffect(() => {
 
-    //Add or update a book details in database
-    const saveBook = (e) => {
+        BookService.get(id).then((response) => {
+            setBookName(response.data.bookName)
+            setAuthorName(response.data.authorName)
+            setQuantity(response.data.quantity)
+            setPrice(response.data.price)
+            setInvoice(response.data.invoice)
+        }).catch(error => {
+            console.log(error)
+        })
+    }, [id])
+
+    function saveBook(e) {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append("bookName", bookName);
+        formData.append("authorName", authorName);
+        formData.append("price", price);
+        formData.append("quantity", quantity);
+        formData.append("file", invoice)
 
-        const book = { author, bookName, quantity, price, id };
-        //update book details according to a particular id
+        //const book ={bookName,authorName,price,quantity,invoice}
         if (id) {
-            bookServices.update(book)
-                .then(response => {
-                    console.log('Book updated successfully', response.data);
-                    navigate('/');
-                })
-                .catch(error => {
-                    console.log('Something went wrong', error);
-                })
-        }
-        //save a new record
-        else {
-            bookServices.create(book)
-                .then(response => {
-                    console.log('Book has been added', response.data);
-                    navigate('/');
-                })
-                .catch(error => {
-                    console.log("Something went wrong", error);
-                });
+            BookService.update(id, formData).then((response) => {
+                console.log(response.data);
+                history('/');
+            }).catch(error => {
+                console.log(error)
+            })
+
+        }else{
+            console.log(formData);
+            BookService.create(formData).then((response) => {
+                console.log(response.data);
+                history('/');
+            })
+                .catch(error => console.log(error))
         }
     }
 
-    //Get data from database when a book detail is updating
-    useEffect(() => {
-        if (id) {
-            bookServices.get(id)
-                .then(book => {
-                    setAuthor(book.data.author);
-                    setBookName(book.data.bookName);
-                    setQuantity(book.data.quantity);
-                    setPrice(book.data.price);
-                })
-                .catch(error => {
-                    console.log('Something went wrong', error);
-                })
-        }
-    }, [])
+
+    
+
+
+
 
     return (
         <div className='container'>
@@ -69,8 +74,9 @@ const AddBook = () => {
                         type='text'
                         className='form-control col-4'
                         id='name'
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
+                        value={authorName}
+                        onChange={(e) => setAuthorName(e.target.value)}
+                        // defaultValue={data.authorName}
                         placeholder='Author Name'
                     />
                 </div >
@@ -104,8 +110,15 @@ const AddBook = () => {
                         placeholder='Price'
                     />
                 </div>
+                <div className='form-group'>
+                    <input
+                          type="file" 
+                          name="file"
+                          onChange={(e)=>setInvoice(e.target.files[0])}
+                    />
+                </div>
                 <div>
-                    <button className='btn btn-success' onClick={(e) => saveBook(e)}>Save</button>
+                    <button className='btn btn-success' type="submit" onClick={(e)=>saveBook(e)}>Save</button>
                     <Link to='/'><button className='btn btn-danger' style={{ marginLeft: "10px" }}>Cancel</button></Link>
                 </div>
             </form>
