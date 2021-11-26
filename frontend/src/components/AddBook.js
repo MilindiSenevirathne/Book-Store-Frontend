@@ -15,7 +15,7 @@ const AddBook = () => {
     const history = useNavigate();
     const { id } = useParams();
 
-    
+    //fetching record according to a particular id
     useEffect(() => {
 
         BookService.get(id).then((response) => {
@@ -29,6 +29,8 @@ const AddBook = () => {
         })
     }, [id])
 
+
+    //Save a record or update a record
     function saveBook(e) {
         e.preventDefault();
         const formData = new FormData();
@@ -38,7 +40,6 @@ const AddBook = () => {
         formData.append("quantity", quantity);
         formData.append("file", invoice)
 
-        //const book ={bookName,authorName,price,quantity,invoice}
         if (id) {
             BookService.update(id, formData).then((response) => {
                 console.log(response.data);
@@ -58,11 +59,6 @@ const AddBook = () => {
     }
 
 
-    
-
-
-
-
     return (
         <div className='container'>
             <h3 style={{ marginTop: "70px" }}>Add New Book</h3>
@@ -76,7 +72,6 @@ const AddBook = () => {
                         id='name'
                         value={authorName}
                         onChange={(e) => setAuthorName(e.target.value)}
-                        // defaultValue={data.authorName}
                         placeholder='Author Name'
                     />
                 </div >
