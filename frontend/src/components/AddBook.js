@@ -42,10 +42,10 @@ const AddBook = () => {
 
         if (id) {
             BookService.update(id, formData).then((response) => {
-                console.log(response.data);
-                history('/');
+                console.log("Successful",response.data);
+                history('/')
             }).catch(error => {
-                console.log(error)
+                console.log("Error",error)
             })
 
         }else{

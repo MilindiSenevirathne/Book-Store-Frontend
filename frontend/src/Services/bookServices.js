@@ -12,8 +12,8 @@ const get = id => {
     return httpClient.get(`/books/${id}`);
 }
 
-const update = (data) => {
-    return httpClient.put('/books', data);
+const update = (id,data) => {
+    return httpClient.put(`/books/${id}`, data);
 }
 
 

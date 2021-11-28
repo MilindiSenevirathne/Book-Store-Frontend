@@ -20,22 +20,32 @@ function BookDetails(){
     },[id])
 
     return(
-        <div style={{padding:"70px"}}>
-            <div>
-            <h3 >Author name: <span style={{fontWeight:"lighter"}} className="text-info">{books?books.authorName:null}</span></h3>
-        </div>
-        <div>
-            <h3 >Book name: <span style={{fontWeight:"lighter"}} className="text-info">{books?books.bookName:null}</span></h3>
-        </div>
-        <div>
-            <h3 >Available Quantity: <span style={{fontWeight:"lighter"}} className="text-info">{books?books.quantity:null}</span></h3>
-        </div>
-        <div>
-            <h3 >Price: <span style={{fontWeight:"lighter"}} className="text-info">{books?books.price:null}</span></h3>
-        </div>
-        <div>
-            <h3 >Invoice: <span ><a href={books ? books.invoicePath : null}><img alt="invoice" style={{ width: "200px", height: "200px" }} src={books ? books.invoicePath : null} /></a></span></h3>
-        </div>
+        <div style={{padding:"70px"}} >
+             <table className="table table-bordered" style={{ marginTop: "30px" }}>
+                <tbody style={{ color: "white", fontSize: "18px" }} className="bg-dark">
+                    <tr >
+                        <td className="tb" style={{ paddingTop: "10px", paddingBottom: "10px", fontWeight: "bold" }}>Book Name :</td>
+                        <td style={{ paddingTop: "10px", paddingBottom: "10px" }}>{books ? books.bookName : null}</td>
+                    </tr>
+                    <tr>
+                        <td className="tb" style={{ paddingTop: "10px", paddingBottom: "10px", fontWeight: "bold" }}>Author :</td>
+                        <td style={{ paddingTop: "10px", paddingBottom: "10px" }}>{books ? books.authorName : null}</td>
+                    </tr>
+                    <tr>
+                        <td className="tb" style={{ paddingTop: "10px", paddingBottom: "10px", fontWeight: "bold" }}>Price :</td>
+                        <td style={{ paddingTop: "10px", paddingBottom: "10px" }}>{books ? books.price : null}</td>
+                    </tr>
+                    <tr>
+                        <td className="tb" style={{ paddingTop: "10px", paddingBottom: "10px", fontWeight: "bold" }}>Quantity :</td>
+                        <td style={{ paddingTop: "10px", paddingBottom: "10px" }}>{books ? books.quantity : null}</td>
+                    </tr>
+                    <tr>
+                        <td className="tb" style={{ paddingTop: "10px", paddingBottom: "10px", fontWeight: "bold" }}>Invoice :</td>
+                        <td><a href={books ? books.invoicePath : null}><img alt="invoice" style={{ width: "200px", height: "200px" ,border:"2px solid yellow" }} src={books ? books.invoicePath : null} /></a></td>
+                    </tr>
+                </tbody>
+
+            </table>
         <Link to='/' className="btn btn-info">Back</Link>
         <Link to={`/books/edit/get/${books.id-1}` } className='btn btn-danger ml-2'>Previous</Link>
         <Link to={`/books/edit/get/${books.id+1}` } className='btn btn-warning ml-2'>Next</Link>

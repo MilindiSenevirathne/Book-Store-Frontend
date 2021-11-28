@@ -9,8 +9,8 @@ const Footer = () => {
                     "backgroundColor":"black",
                     "color": "white",
                     "text-align": "center"
-                }}>
-                    <span className="test-mutre">All Rights Reserved|2021</span>
+                }} className="bg-dark">
+                    <span className="test-mutre">All Rights Reserved | 2021</span>
                 </footer>
             </div>
      );
