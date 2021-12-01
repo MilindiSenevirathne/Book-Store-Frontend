@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 const AddBook = () => {
 
-    
+
     const [bookName, setBookName] = useState('')
     const [authorName, setAuthorName] = useState('')
     const [quantity, setQuantity] = useState('')
@@ -42,13 +42,13 @@ const AddBook = () => {
 
         if (id) {
             BookService.update(id, formData).then((response) => {
-                console.log("Successful",response.data);
+                console.log("Successful", response.data);
                 history('/')
             }).catch(error => {
-                console.log("Error",error)
+                console.log("Error", error)
             })
 
-        }else{
+        } else {
             console.log(formData);
             BookService.create(formData).then((response) => {
                 console.log(response.data);
@@ -65,17 +65,7 @@ const AddBook = () => {
             <hr />
 
             <form >
-                <div className='form-group'>
-                    <input
-                        type='text'
-                        className='form-control col-4'
-                        id='name'
-                        value={authorName}
-                        onChange={(e) => setAuthorName(e.target.value)}
-                        placeholder='Author Name'
-                    />
-                </div >
-                <div className='form-group'>
+                <div className="mb-3" style={{ width: "350px" }}>
                     <input
                         type='text'
                         className='form-control col-4'
@@ -85,7 +75,17 @@ const AddBook = () => {
                         placeholder='Book Name'
                     />
                 </div>
-                <div className='form-group'>
+                <div className="mb-3" style={{ width: "350px" }}>
+                    <input
+                        type='text'
+                        className='form-control col-4'
+                        id='name'
+                        value={authorName}
+                        onChange={(e) => setAuthorName(e.target.value)}
+                        placeholder='Author Name'
+                    />
+                </div >
+                <div className="mb-3" style={{ width: "350px" }}>
                     <input
                         type='text'
                         className='form-control col-4'
@@ -95,7 +95,7 @@ const AddBook = () => {
                         placeholder='Quantity'
                     />
                 </div>
-                <div className='form-group'>
+                <div className="mb-3" style={{ width: "350px" }}>
                     <input
                         type='text'
                         className='form-control col-4'
@@ -105,15 +105,15 @@ const AddBook = () => {
                         placeholder='Price'
                     />
                 </div>
-                <div className='form-group'>
+                <div className="mb-3">
                     <input
-                          type="file" 
-                          name="file"
-                          onChange={(e)=>setInvoice(e.target.files[0])}
+                        type="file"
+                        name="file"
+                        onChange={(e) => setInvoice(e.target.files[0])}
                     />
                 </div>
                 <div>
-                    <button className='btn btn-success' type="submit" onClick={(e)=>saveBook(e)}>Save</button>
+                    <button className='btn btn-success' type="submit" onClick={(e) => saveBook(e)}>Save</button>
                     <Link to='/'><button className='btn btn-danger' style={{ marginLeft: "10px" }}>Cancel</button></Link>
                 </div>
             </form>
